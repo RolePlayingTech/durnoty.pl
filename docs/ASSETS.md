@@ -1,0 +1,15 @@
+# Pochodzenie mediów
+
+| Plik                                     | Pochodzenie i zasady                                                                                                                                                                                                                                                                                 |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/art/emu.webp`, `emu-small.webp`  | Oryginalna syntetyczna ilustracja wygenerowana narzędziem imagegen 20.09.2026. Prompt: emu w historycznym hełmie, autorski kolaż prasowy na australijskim tle, bez tekstu i znaków. To nie fotografia historyczna. Model nie został ujawniony przez narzędzie; nie przypisujemy mu wymyślonej nazwy. |
+| `public/art/*.svg`, `public/favicon.svg` | Autorskie wektory stworzone dla projektu. Edytowalne źródła, MIT.                                                                                                                                                                                                                                    |
+| `public/tv/*`                            | Oryginalne mikroprogramy bez audio, plansze wektorowe rasteryzowane przez sharp i łączone przez ffmpeg. Scenariusze i generator: `scripts/create-media.ts`. Bez cudzych fragmentów filmowych. MIT.                                                                                                   |
+| `public/og.png`, `/og/{slug}.png`        | Własny generator w `src/lib/og.ts`.                                                                                                                                                                                                                                                                  |
+| Oswald, Barlow                           | Pakiety `@fontsource/oswald` i `@fontsource/barlow`, fonty na SIL OFL 1.1, lokalne pliki emitowane podczas budowy. Licencje: katalogi pakietów w node_modules.                                                                                                                                       |
+
+Oryginalne materiały referencyjne dostarczone przez właściciela pozostają na serwerze poza indeksem Git. Nie są serwowane przez portal. Teksty startowe są własnymi krótkimi opracowaniami; źródła są zapisane jawnie w `src/lib/seed.ts`. Satyra ma `kind=satire` i widoczne oznaczenie na stronie.
+
+Licencja kodu nie nadaje praw do treści dostarczanych później przez CMS. Odpowiedzialność za prawa do takich materiałów pozostaje po stronie publikującego.
+
+`public/fonts/durnoty-symbols.woff2` to podzbiór znaków U+2190–U+2BFF fontu DejaVu Sans 2.37. Zawiera strzałki i symbole gier niezależne od systemu użytkownika. Oryginalna licencja: `public/fonts/DEJAVU-LICENSE.txt`. Utworzony przez fonttools `pyftsubset` z `--unicodes=U+2190-2BFF --flavor=woff2`.

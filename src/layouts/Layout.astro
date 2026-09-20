@@ -1,0 +1,181 @@
+---
+import '@fontsource/oswald/700.css';
+
+import '@fontsource/barlow/400.css';
+
+import '@fontsource/barlow/600.css';
+
+import '../styles/global.css';
+import Mascot from '../components/Mascot.astro';
+import { absoluteUrl } from '../lib/content';
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  noindex?: boolean;
+}
+const {
+  title = 'Internet nie musiał taki być.',
+  description = 'Rzeczy dziwne, ale prawdziwe. Minigry, quizy, eksperymenty i redakcja, która ma kilka pytań do rzeczywistości. Wejdź. Jeszcze tylko jeden klik.',
+  image = '/og.png',
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+const path = Astro.url.pathname;
+const links = [
+  ['/', 'DZISIAJ'],
+  ['/artykuly', 'DZIWNE'],
+  ['/gry', 'GRY'],
+  ['/tv', 'DURNOTY TV'],
+  ['/laboratorium', 'LABORATORIUM'],
+  ['/rankingi', 'RANKINGI'],
+];
+const date = new Intl.DateTimeFormat('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Europe/Warsaw',
+}).format(new Date());
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" /><meta
+      name="viewport"
+      content="width=device-width"
+    />
+    <meta name="theme-color" content="#f1eedf" /><link
+      rel="icon"
+      href="/favicon.svg"
+      type="image/svg+xml"
+    />
+    <title>{title} — Durnoty.pl</title><meta
+      name="description"
+      content={description}
+    />
+    <link rel="canonical" href={absoluteUrl(path)} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <meta property="og:site_name" content="Durnoty.pl" /><meta
+      property="og:locale"
+      content="pl_PL"
+    />
+    <meta property="og:title" content={title} /><meta
+      property="og:description"
+      content={description}
+    /><meta property="og:type" content={type} />
+    <meta property="og:url" content={absoluteUrl(path)} /><meta
+      property="og:image"
+      content={absoluteUrl(image)}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Świeże Durnoty"
+      href="/rss.xml"
+    />
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#tresc" class="skip-link">Przejdź do treści</a>
+    <div class="site-shell">
+      <div class="edition-line">
+        <span>NIEZALEŻNY ZAKŁAD PRZERÓBKI RZECZYWISTOŚCI</span><span
+          >WYDANIE INTERNETOWE <b>№ 001</b></span
+        >
+      </div>
+      <header class="masthead">
+        <a class="brand" href="/" aria-label="Durnoty.pl — strona główna"
+          ><Mascot /><span
+            ><span class="wordmark">DURNOTY<span>.PL</span></span><span
+              class="tagline">Internet nie musiał taki być.</span
+            ></span
+          ></a
+        >
+        <div class="masthead-note">
+          Trochę mądrzej.<br />Zdecydowanie dziwniej.<span
+            class="scribble-arrow">↙</span
+          >
+        </div>
+        <div class="weather">
+          <span>STAN INTERNETU</span><strong>39,2<span>°C</span></strong><small
+            >lekka utrata rozsądku</small
+          ><span class="weather-disclaimer">pomiar wybitnie redakcyjny</span>
+        </div>
+        <div class="dateline">
+          <span>{date}</span><strong>Wszystko pod kontrolą.</strong><span
+            >Prawdopodobnie.</span
+          ><a href="/o-nas">Kim są ci ludzie? ↗</a>
+        </div>
+      </header>
+      <nav class="main-nav" aria-label="Nawigacja główna">
+        <button
+          class="mobile-menu"
+          aria-expanded="false"
+          aria-controls="nav-links">☰ <span>CAŁA RESZTA</span></button
+        >
+        <div class="nav-links" id="nav-links">
+          {
+            links.map(([url, label]) => (
+              <a
+                href={url}
+                class:list={{
+                  active:
+                    path === url ||
+                    (url === '/gry' && path.startsWith('/gra/')),
+                }}
+                aria-current={path === url ? 'page' : undefined}
+              >
+                {label === 'DURNOTY TV' && <i class="red-dot" />}
+                {label}
+              </a>
+            ))
+          }
+        </div>
+        <a class="nav-random" href="/losowe" data-event="random_clicked"
+          >⚄ <span>LOSOWA DURNOTA</span></a
+        >
+        <form class="nav-search" action="/artykuly" role="search">
+          <label class="sr-only" for="search">Szukaj durnot</label><input
+            id="search"
+            name="q"
+            type="search"
+            placeholder="Czego znowu szukasz?"
+            maxlength="100"
+          /><button aria-label="Szukaj">⌕</button>
+        </form>
+      </nav>
+      <main id="tresc"><slot /></main>
+      <div class="mumro-strip">
+        <span>Mały portal. Dużo do powiedzenia.</span><a
+          href="https://mumro.io?utm_source=durnoty.pl&utm_medium=referral&utm_campaign=portal"
+          target="_blank"
+          rel="noopener"
+          >Redakcja ogarnia publikacje z <strong>mumro</strong> ↗</a
+        >
+      </div>
+      <footer class="footer">
+        <a class="footer-brand" href="/">DURNOTY.PL</a><span
+          >© {new Date().getFullYear()} · Rozsądek opcjonalny.</span
+        ><div>
+          <a href="/o-nas">O nas i kontakt</a><a href="/prywatnosc"
+            >Prywatność</a
+          ><a href="/rss.xml">RSS</a><a
+            href="https://github.com/RolePlayingTech/durnoty.pl"
+            >Kod źródłowy ↗</a
+          >
+        </div><button class="footer-secret" data-red-button>NIE KLIKAJ ↗</button
+        >
+      </footer>
+      <div class="bottom-note">
+        Dziękujemy za zmarnowanie czasu w dobrym towarzystwie. <span
+          >Żaden ziemniak nie ucierpiał.</span
+        >
+      </div>
+    </div>
+    <div class="toast" role="status" aria-live="polite" hidden></div>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>

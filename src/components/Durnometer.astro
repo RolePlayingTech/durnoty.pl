@@ -1,0 +1,29 @@
+---
+interface Props {
+  value: number;
+  importance?: number;
+}
+const { value, importance } = Astro.props;
+---
+
+<div
+  class="durnometer"
+  aria-label={`Ocena redakcji: durnota ${value}%${importance !== undefined ? `, ważność ${importance}%` : ''}`}
+>
+  <span>DURNOTA</span><span class="meter-track"
+    ><span style={`width:${Math.min(100, Math.max(0, value))}%`}></span></span
+  ><strong>{value}%</strong>
+  {
+    importance !== undefined && (
+      <>
+        <>
+          <span>WAŻNOŚĆ</span>
+          <span class="meter-track importance">
+            <span style={`width:${Math.min(100, Math.max(0, importance))}%`} />
+          </span>
+          <strong>{importance}%</strong>
+        </>
+      </>
+    )
+  }
+</div>

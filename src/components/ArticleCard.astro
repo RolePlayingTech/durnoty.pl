@@ -1,0 +1,35 @@
+---
+import type { Article } from '../lib/schema';
+import { categoryNames } from '../lib/schema';
+import { articleUrl } from '../lib/content';
+import Durnometer from './Durnometer.astro';
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+---
+
+<article class="article-card">
+  <a
+    class="article-card-image"
+    href={articleUrl(article.slug)}
+    tabindex="-1"
+    aria-hidden="true"
+    ><img
+      src={article.image}
+      alt=""
+      width="600"
+      height="400"
+      loading="lazy"
+    /></a
+  >
+  <div class="eyebrow">
+    {categoryNames[article.metadata.category]}
+    <span
+      >· {article.metadata.kind === 'satire' ? 'SATYRA' : 'ZE ŹRÓDŁAMI'}</span
+    >
+  </div>
+  <h3><a href={articleUrl(article.slug)}>{article.title}</a></h3>
+  <p>{article.excerpt}</p>
+  <Durnometer value={article.metadata.absurdity} />
+</article>

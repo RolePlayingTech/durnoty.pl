@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { listArticles } from '../lib/db';
+const articles = listArticles().sort(
+  (a, b) => b.metadata.absurdity - a.metadata.absurdity,
+);
+const achievements = [
+  ['first-click', 'Pierwsza zła decyzja', 'Naciśnij czerwony guzik.'],
+  ['button', 'Nie potrafi przestać', 'Naciśnij guzik dziesięć razy.'],
+  ['potato', 'Inspektor ziemniaków', 'Złap 10 ziemniaków w jednej rundzie.'],
+  ['quiz', 'Zdrowy rozsądek', 'Zdobądź 5/5 w quizie.'],
+  ['memory', 'Jednak pamiętam', 'Znajdź wszystkie pary.'],
+  ['tv', 'Telewidz z wyboru', 'Obejrzyj cały mikroprogram.'],
+  ['secret', 'Dział rzeczy niewyjaśnionych', 'Stary kod. Nowy internet.'],
+];
+---
+
+<Layout title="Rankingi i małe sukcesy"
+  ><header class="page-heading">
+    <span class="tiny-label"
+      >KLASYFIKACJA RZECZY TRUDNYCH DO SKLASYFIKOWANIA</span
+    ><h1>NAJWYŻSZY STOPIEŃ<br />NIEPOWAGI.</h1><p>
+      Durnometr redakcji i Twoje prywatne osiągnięcia. Każde we własnej lidze.
+    </p>
+  </header><div class="section-heading">
+    <h2>REDAKCJA NIE WIERZY NAJBARDZIEJ</h2><span class="tiny-label"
+      >OCENA SUBIEKTYWNA</span
+    >
+  </div><ol class="ranking-list">
+    {
+      articles.map((a, i) => (
+        <li>
+          <>
+            <span>0{i + 1}</span>
+            <a href={`/artykul/${a.slug}`}>{a.title}</a>
+            <strong>{a.metadata.absurdity}%</strong>
+          </>
+        </li>
+      ))
+    }
+  </ol><div class="section-heading">
+    <h2>TWOJE REKORDY</h2><span class="tiny-label">TYLKO TO URZĄDZENIE</span>
+  </div><div class="local-scores">
+    {
+      [
+        ['ziemniak', 'Złapane ziemniaki', '', 'więcej = lepiej'],
+        ['quiz', 'Prawda czy durnota', ' / 5', 'więcej = lepiej'],
+        ['refleks', 'Mediana refleksu', ' ms', 'mniej = lepiej'],
+        ['pamiec', 'Ruchy w pamięci', '', 'mniej = lepiej'],
+      ].map(([key, label, unit, note]) => (
+        <div class="score-box">
+          <>
+            <h3>{label}</h3>
+            <strong data-score={key} data-unit={unit}>
+              jeszcze nic
+            </strong>
+            <small>{note}</small>
+          </>
+        </div>
+      ))
+    }
+  </div><p class="local-note">
+    To nie jest globalny ranking. Rekordy zależą też od urządzenia i sposobu
+    sterowania. <a href="/gry">Zagraj i zapełnij pustki.</a>
+  </p><div class="section-heading"><h2>GABLOTA BEZ NAGRÓD</h2></div><div
+    class="achievements-list"
+  >
+    {
+      achievements.map(([id, title, description]) => (
+        <article class="achievement" data-achievement={id}>
+          <>
+            <span aria-hidden="true">✳</span>
+            <div class="tiny-label" data-status>
+              DO ODKRYCIA
+            </div>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </>
+        </article>
+      ))
+    }
+  </div></Layout
+>

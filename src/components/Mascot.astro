@@ -1,0 +1,15 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<img
+  src="/art/mascot.svg"
+  width="160"
+  height="130"
+  alt=""
+  class:list={['mascot', className]}
+  aria-hidden="true"
+/>

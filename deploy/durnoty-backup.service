@@ -1,0 +1,6 @@
+[Unit]
+Description=Verified SQLite backup for Durnoty.pl
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /var/www/durnoty.pl/deploy/backup.py
+UMask=0077

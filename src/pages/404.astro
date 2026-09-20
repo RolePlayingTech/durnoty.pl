@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Mascot from '../components/Mascot.astro';
+Astro.response.status = 404;
+---
+
+<Layout title="No nie ma" noindex
+  ><section class="not-found">
+    <Mascot /><span class="tiny-label">PROTOKÓŁ ZAGINIĘCIA · 404</span><h1>
+      NO NIE MA.
+    </h1><p>
+      Albo usunęliśmy, albo nigdy tego nie było.<br />Ziemniak odmawia składania
+      wyjaśnień.
+    </p><a class="button red" href="/losowe">Daj mi inną durnotę ↗</a><p
+      class="local-note"
+    >
+      <a href="/gra/ziemniak">Możesz też przesłuchać ziemniaka.</a>
+    </p>
+  </section></Layout
+>

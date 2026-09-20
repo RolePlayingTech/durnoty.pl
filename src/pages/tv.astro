@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { channels } from '../lib/tv';
+const channel = channels[0]!;
+---
+
+<Layout title="Durnoty TV — lepsze niż ściana"
+  ><header class="page-heading">
+    <span class="tiny-label"
+      >TELEWIZJA O NIEWIELKIM ZASIĘGU I DUŻYCH WĄTPLIWOŚCIACH</span
+    ><h1>PILOT JEST TWÓJ.</h1><p>
+      Trzy kanały. Autorskie mikroprogramy. Zero reklam proszku do prania.
+    </p>
+  </header><div class="tv-layout">
+    <div class="television">
+      <div class="tv-osd">
+        <span data-channel-label>CH 01 · DURNOTY</span><span
+          >NAGRANIE · NIE TRANSMISJA LIVE</span
+        >
+      </div><video
+        id="tv-player"
+        controls
+        preload="metadata"
+        playsinline
+        poster={channel.poster}
+        aria-label="Odtwarzacz Durnoty TV"
+        ><source src={channel.file} type="video/mp4" /><track
+          kind="captions"
+          src={channel.captions}
+          srclang="pl"
+          label="Polski"
+          default
+        /><p>
+          Twoja przeglądarka nie obsługuje odtwarzacza. <a href={channel.file}
+            >Pobierz program.</a
+          >
+        </p></video
+      >
+    </div><aside class="tv-remote">
+      <span class="tiny-label">NIE GUBIĆ W KANAPIE</span><h2>PILOT.</h2><div
+        class="channel-list"
+      >
+        {
+          channels.map((ch, i) => (
+            <button data-channel={i} aria-pressed={i === 0}>
+              <span>0{ch.id}</span>
+              {ch.name}
+            </button>
+          ))
+        }
+      </div><button data-continuous aria-pressed="false"
+        >Tryb ciągły: wyłączony</button
+      ><p>
+        Kanał zmieniasz przyciskiem.<br />Odtwarzanie zaczynasz sam.<br
+        />Programy są bez dźwięku.
+      </p>
+    </aside>
+  </div><section class="tv-program">
+    <div>
+      <span class="tiny-label">NA ANTENIE, UMOWNIE</span><h2 data-program-title>
+        {channel.title}
+      </h2><p data-program-description>{channel.description}</p><p
+        class="local-note"
+        data-tv-status
+        role="status"
+      >
+        Naciśnij odtwarzanie. Możesz włączyć napisy w kontrolkach filmu.
+      </p>
+    </div><a class="button outline" href="/gry">Wolę coś kliknąć ↗</a>
+  </section><script src="../scripts/tv.ts"></script></Layout
+>

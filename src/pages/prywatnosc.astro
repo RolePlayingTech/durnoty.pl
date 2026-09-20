@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Prywatność. Bez drobnego druku."
+  ><header class="page-heading">
+    <span class="tiny-label">STAN NA 20 WRZEŚNIA 2026</span><h1>
+      ZIEMNIAK NIE MUSI<br />ZNAĆ TWOJEGO IMIENIA.
+    </h1><p>
+      Możesz czytać i grać bez konta. Oto, co faktycznie zapisuje portal.
+    </p>
+  </header><div class="prose-page">
+    <h2>W Twojej przeglądarce</h2><p>
+      LocalStorage przechowuje najlepsze wyniki, osiągnięcia i liczbę naciśnięć
+      czerwonego guzika. Dane te pozostają na Twoim urządzeniu; nie wysyłamy ich
+      na serwer. Gdy pamięć jest niedostępna, nadal możesz grać.
+    </p><p>
+      Przycisk „Losowa durnota” zapisuje techniczne ciasteczko <code
+        >durnoty_last_random</code
+      > na godzinę, tylko dla ścieżki losowania. Zawiera identyfikator ostatnio wylosowanego
+      artykułu, żeby kolejny klik nie prowadził do tego samego tekstu.
+    </p><button class="button outline" data-clear-storage
+      >Usuń moje lokalne wyniki i osiągnięcia</button
+    ><h2>Na serwerze</h2><p>
+      Serwer otrzymuje dane konieczne do obsługi połączenia, w tym adres IP. Dla
+      tej witryny wyłączono zwykły dziennik wejść Nginx. Dzienniki błędów mogą
+      zawierać dane techniczne niezbędne do diagnozowania usterek. Nie budujemy
+      z nich profili reklamowych.
+    </p><h2>Pomiar i zewnętrzne usługi</h2><p>
+      W tym wydaniu nie ma reklamowych trackerów ani zewnętrznego skryptu
+      analitycznego. Zdarzenia gier są dostępne lokalnie w kodzie strony, ale
+      nie są wysyłane. Fonty, początkowe ilustracje i programy TV są serwowane z
+      naszej domeny.
+    </p><p>
+      Artykuły dostarczane przez redakcję mogą zawierać obrazy ładowane z Mumro
+      lub innych wskazanych źródeł HTTPS. Ich wyświetlenie oznacza połączenie z
+      serwerem obrazu. Linki do źródeł, GitHuba i Mumro otwierają zewnętrzne
+      serwisy z własnymi zasadami prywatności.
+    </p><h2>Kontakt i zmiany</h2><p>
+      Za portal odpowiada RolePlayingTech; informacje kontaktowe znajdują się na <a
+        href="https://roleplayingtech.pl">stronie operatora</a
+      >. W sprawach dotyczących prywatności nie zamieszczaj swoich danych w
+      publicznym zgłoszeniu GitHub. Jeśli dołożymy konta lub pomiar serwerowy,
+      zaktualizujemy ten opis przed ich uruchomieniem.
+    </p>
+  </div></Layout
+>

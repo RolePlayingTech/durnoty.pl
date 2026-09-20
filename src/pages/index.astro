@@ -1,0 +1,201 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Durnometer from '../components/Durnometer.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Mascot from '../components/Mascot.astro';
+import { listArticles } from '../lib/db';
+import { articleUrl } from '../lib/content';
+import { categoryNames } from '../lib/schema';
+const articles = listArticles();
+const lead = articles[0];
+---
+
+<Layout>
+  <div class="news-wire">
+    <span class="wire-label">PILNE, ALE NIE BARDZO</span><p>
+      Świat nadal dziwny. <b>Redakcja nie jest zaskoczona.</b>
+    </p><a href="/artykuly">Wszystkie doniesienia ↗</a>
+  </div>
+  <div class="frontpage-heading">
+    <h1>PORZĄDNA DAWKA NIEPORZĄDKU.</h1><span
+      >Proszę nie traktować wszystkiego poważnie. Faktów akurat tak.</span
+    >
+  </div>
+  <div class="lead-grid">
+    {
+      lead && (
+        <article class="lead-story">
+          <a
+            class="lead-image"
+            href={articleUrl(lead.slug)}
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <>
+              <img
+                src={lead.image}
+                srcset={
+                  lead.image === '/art/emu.webp'
+                    ? '/art/emu-small.webp 600w, /art/emu.webp 1200w'
+                    : undefined
+                }
+                sizes="(max-width: 700px) 100vw, 50vw"
+                width="1200"
+                height="800"
+                alt=""
+                fetchpriority="high"
+              />
+              <span class="lead-stamp">DURNOTA DNIA</span>
+              <span class="photo-note">
+                {lead.metadata.kind === 'satire' ? 'SATYRA.' : 'RZECZYWISTOŚĆ.'}
+                <br />
+                DO KONTROLI.
+              </span>
+              <span class="image-caption">ilustracja redakcyjna</span>
+            </>
+          </a>
+          <div class="lead-copy">
+            <>
+              <div class="eyebrow">
+                {categoryNames[lead.metadata.category]}{' '}
+                <span>
+                  · {lead.metadata.kind === 'satire' ? 'SATYRA' : 'ZE ŹRÓDŁAMI'}
+                </span>
+              </div>
+              <h2>
+                <a href={articleUrl(lead.slug)}>{lead.title}</a>
+              </h2>
+              <p>{lead.excerpt}</p>
+              <div class="lead-bottom">
+                <>
+                  <a class="button red" href={articleUrl(lead.slug)}>
+                    Niestety czytam dalej <span>↗</span>
+                  </a>
+                  <Durnometer value={lead.metadata.absurdity} />
+                </>
+              </div>
+            </>
+          </div>
+        </article>
+      )
+    }
+    <div class="middle-column">
+      <a class="potato-poster" href="/gra/ziemniak"
+        ><div class="poster-top">
+          <span>MINIGRA № 01</span><span>20 SEKUND</span>
+        </div><h2>KLIKNIJ<br />ZIEMNIAKA.</h2><div class="potato-scene">
+          <img
+            src="/art/potato.svg"
+            alt="Ziemniak w okularach przeciwsłonecznych"
+            width="300"
+            height="260"
+          /><span class="potato-aside"
+            >On też nie wie,<br />po co tu jest.<b>↙</b></span
+          >
+        </div><span class="poster-cta">MAM CHWILĘ <b>↗</b></span><p>
+          Zero sensu. Zaskakująco trudno przestać.
+        </p></a
+      >
+      <section class="red-button-box">
+        <span class="tiny-label">WYDZIAŁ ZŁYCH DECYZJI</span><div>
+          <button
+            class="big-red-button"
+            data-red-button
+            aria-label="Naciśnij czerwony guzik"><span></span></button
+          ><div>
+            <h2>CZERWONY<br />GUZIK.</h2><p>
+              Nie klikaj.<br />No weź, nie klikaj.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="right-column">
+      <section class="quiz-poster">
+        <span class="slanted-tag">SPRAWDŹ SWÓJ INTERNET</span><div
+          class="eyebrow"
+        >
+          5 PYTAŃ. ŻADNYCH WYMÓWEK.
+        </div><h2>PRAWDA<br />CZY <span>DURNOTA?</span></h2><p>
+          Ośmiornica ma trzy serca.<br />A Ty nadal wierzysz we wszystko?
+        </p><a class="button dark" href="/gra/prawda-czy-durnota"
+          >Sprawdzam się <span>↗</span></a
+        ><div class="quiz-doodle" aria-hidden="true">? <span>!</span></div>
+      </section>
+      <section class="dispatch-board">
+        <div class="board-pin" aria-hidden="true"></div><span class="tiny-label"
+          >KOMUNIKAT REDAKCJI № 001</span
+        ><h2>TU MOŻNA<br />NIC NIE MUSIEĆ.</h2><p>
+          Bez konta. Bez „jeszcze tylko podaj e-mail”. Za to z ziemniakiem.
+        </p><div class="board-signature">
+          <Mascot /><span
+            >Podpisano:<br /><b>ktoś odpowiedzialny</b><br />(chwilowo
+            nieobecny)</span
+          >
+        </div><a href="/o-nas">Czyli co to za miejsce? ↗</a>
+      </section>
+    </div>
+  </div>
+  <div class="intermission">
+    <span>↓ JESZCZE NIE WRACAJ DO OBOWIĄZKÓW</span><span
+      >mamy parę rzeczy na stanie</span
+    ><span>↓</span>
+  </div>
+  <div class="playground-row">
+    <a href="/tv" class="tv-card"
+      ><div class="mini-tv">
+        <div class="tv-screen">
+          <span>CH 01 <i></i></span><strong>DURNOTY<br />TV</strong><Mascot />
+        </div><div class="tv-hardware">
+          <span></span><span></span><i></i><i></i><i></i>
+        </div>
+      </div><div class="tv-caption">
+        <h2>LEPSZE NIŻ PATRZENIE W ŚCIANĘ.</h2><span>Włącz telewizor ↗</span>
+      </div></a
+    >
+    <a href="/losowe" class="random-card" data-event="random_clicked"
+      ><span class="tiny-label">TURYSTYKA BEZ PLANU</span><h2>
+        NIE WIEM,<br />CZEGO CHCĘ.
+      </h2><div class="dice" aria-hidden="true">⚄</div><p>
+        Świetnie. Mamy coś dokładnie dla Ciebie.
+      </p><span class="text-link">Losuj durnotę <b>↗</b></span></a
+    >
+    <section class="lab-card">
+      <span class="tiny-label">LABORATORIUM DURNOT</span><h2>
+        TO NIE POWINNO<br />BYŁO POWSTAĆ.
+      </h2><div class="lab-items">
+        <a href="/gra/wymowki"
+          ><span>001</span><div>
+            <h3>Generator wymówek</h3><p>Nie Twoja wina. Mamy na to papier.</p>
+          </div><b>↗</b></a
+        ><a href="/gra/refleks"
+          ><span>002</span><div>
+            <h3>Jeszcze nie. TERAZ.</h3><p>Test refleksu bez diagnozowania.</p>
+          </div><b>↗</b></a
+        ><a href="/gra/pamiec"
+          ><span>003</span><div>
+            <h3>Gdzie ja to…</h3><p>Gra w pamięć. Zasady chyba pamiętamy.</p>
+          </div><b>↗</b></a
+        >
+      </div>
+    </section>
+  </div>
+  <div class="section-heading">
+    <div>
+      <span class="tiny-label">DEPESZE Z RZECZYWISTOŚCI</span><h2>
+        ŚWIAT SAM TO WYMYŚLIŁ.
+      </h2>
+    </div><a href="/artykuly">Całe archiwum ↗</a>
+  </div>
+  <div class="article-grid">
+    {articles.slice(1, 4).map((article) => <ArticleCard article={article} />)}
+  </div>
+  <section class="achievement-strip">
+    <span class="achievement-medal" aria-hidden="true">✳</span><div>
+      <h2>MAŁE SUKCESY. ŻADNYCH KORZYŚCI.</h2><p>
+        Twoje osiągnięcia zostają w tej przeglądarce. Jak tajemnica, tylko mniej
+        ważna.
+      </p>
+    </div><a href="/rankingi" class="button outline">Moje osiągnięcia ↗</a>
+  </section>
+</Layout>

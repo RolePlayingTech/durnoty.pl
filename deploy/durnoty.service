@@ -1,0 +1,23 @@
+[Unit]
+Description=Durnoty.pl — niezalezny zaklad przerobki rzeczywistosci
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/durnoty.pl
+EnvironmentFile=/etc/durnoty.env
+ExecStart=/opt/durnoty-runtime/node_modules/node/bin/node /var/www/durnoty.pl/dist/server/entry.mjs
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/durnoty
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

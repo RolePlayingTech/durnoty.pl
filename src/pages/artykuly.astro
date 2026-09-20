@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { listArticles } from '../lib/db';
+import { categories, categoryNames } from '../lib/schema';
+const q = (Astro.url.searchParams.get('q') || '').slice(0, 100).trim();
+const category = Astro.url.searchParams.get('kategoria') || '';
+const normalize = (s: string) =>
+  s
+    .toLocaleLowerCase('pl')
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/ł/g, 'l');
+const articles = listArticles().filter(
+  (a) =>
+    (!category || a.metadata.category === category) &&
+    normalize(
+      `${a.title} ${a.excerpt} ${a.content_html.replace(/<[^>]*>/g, ' ')}`,
+    ).includes(normalize(q)),
+);
+---
+
+<Layout
+  title={q ? `Szukasz: ${q}` : 'Archiwum rzeczy niepojętych'}
+  noindex={!!q || !!category}
+>
+  <header class="page-heading">
+    <span class="tiny-label">PRZECHOWALNIA OSOBLIWOŚCI</span><h1>
+      {q ? 'SZUKAMY. BEZ OCENIANIA.' : 'ŚWIAT SAM TO WYMYŚLIŁ.'}
+    </h1><p>
+      Historie, które brzmią podejrzanie. Ze źródłami, bo samo „zaufaj mi” to
+      trochę mało.
+    </p>
+  </header>
+  <form class="archive-search" action="/artykuly" role="search">
+    <label class="sr-only" for="archive-q">Szukaj w archiwum</label><input
+      id="archive-q"
+      name="q"
+      type="search"
+      value={q}
+      maxlength="100"
+      placeholder="Czego znowu szukasz?"
+    /><button class="button dark">Szukaj ↗</button>
+  </form>
+  <nav class="filter-bar" aria-label="Kategorie artykułów">
+    <a href="/artykuly" class:list={{ selected: !category }}>Wszystko</a>{
+      categories.map((c) => (
+        <a
+          href={`/artykuly?kategoria=${c}`}
+          class:list={{ selected: category === c }}
+        >
+          {categoryNames[c]}
+        </a>
+      ))
+    }
+  </nav>
+  {
+    articles.length ? (
+      <div class="article-grid archive-grid">
+        {articles.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <>
+          <h2>NIC.</h2>
+          <p>Nawet tutaj. Spróbuj innego hasła albo zdaj się na przypadek.</p>
+          <a class="button yellow" href="/losowe">
+            Niech los zdecyduje ↗
+          </a>
+        </>
+      </div>
+    )
+  }
+</Layout>

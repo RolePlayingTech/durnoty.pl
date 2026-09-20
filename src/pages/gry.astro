@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { games } from '../lib/games';
+---
+
+<Layout title="Salon gier bez żetonów"
+  ><header class="page-heading">
+    <span class="tiny-label">ROZRYWKA O ZNIKOMYM ZNACZENIU</span><h1>
+      JESZCZE JEDNA RUNDA.
+    </h1><p>
+      Pięć sposobów, żeby odłożyć coś na później. Bez logowania, instalowania i
+      pytań o sens życia.
+    </p>
+  </header><div class="games-catalog">
+    {
+      games.map((game, i) => (
+        <a class:list={['game-poster', game.color]} href={`/gra/${game.slug}`}>
+          <>
+            <div class="poster-top">
+              <>
+                <span>MINIGRA № {String(i + 1).padStart(2, '0')}</span>
+                <span>↗</span>
+              </>
+            </div>
+            <div class="game-poster-art">
+              {game.symbol === 'potato' ? (
+                <img src="/art/potato.svg" alt="" width="300" height="260" />
+              ) : (
+                <span>{game.symbol}</span>
+              )}
+            </div>
+            <span class="tiny-label">{game.kicker}</span>
+            <h2>{game.title}</h2>
+            <p>{game.description}</p>
+            <span class="poster-cta">
+              GRAM <b>↗</b>
+            </span>
+          </>
+        </a>
+      ))
+    }
+  </div><p class="local-note">
+    Wyniki zapisujemy tylko w tej przeglądarce. <a href="/rankingi"
+      >Zobacz swoje rekordy.</a
+    >
+  </p></Layout
+>

@@ -1,0 +1,146 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Durnometer from '../../components/Durnometer.astro';
+import { findArticle } from '../../lib/db';
+import { categoryNames } from '../../lib/schema';
+import { readingMinutes, absoluteUrl, articleUrl } from '../../lib/content';
+const article = findArticle(Astro.params.slug!);
+if (!article) return Astro.rewrite('/404');
+const structured = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.title,
+  description: article.excerpt,
+  image: absoluteUrl(`/og/${article.slug}.png`),
+  datePublished: article.published_at,
+  dateModified: article.updated_at,
+  author: {
+    '@type': 'Organization',
+    name: article.metadata.author,
+    url: absoluteUrl('/o-nas'),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Durnoty.pl',
+    url: absoluteUrl('/'),
+  },
+  mainEntityOfPage: absoluteUrl(articleUrl(article.slug)),
+};
+---
+
+<Layout
+  title={article.title}
+  description={article.excerpt}
+  image={`/og/${article.slug}.png`}
+  type="article"
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(structured).replace(/</g, '\\u003c')}
+  />
+  <nav class="breadcrumbs" aria-label="Okruszki">
+    <a href="/">Dzisiaj</a><span>/</span><a
+      href={`/artykuly?kategoria=${article.metadata.category}`}
+      >{categoryNames[article.metadata.category]}</a
+    ><span>/</span><span>Doniesienie</span>
+  </nav>
+  <div class="editorial">
+    <article>
+      <header class="article-heading">
+        <div class="eyebrow">
+          {categoryNames[article.metadata.category]} · {
+            article.metadata.kind === 'satire'
+              ? 'SATYRA REDAKCYJNA'
+              : article.metadata.kind === 'experiment'
+                ? 'EKSPERYMENT'
+                : 'MATERIAŁ ZE ŹRÓDŁAMI'
+          }
+        </div><h1>{article.title}</h1><p class="lead">{article.excerpt}</p><div
+          class="article-byline"
+        >
+          <span>{article.metadata.author}</span><time
+            datetime={article.published_at}
+            >{
+              new Date(article.published_at).toLocaleDateString('pl-PL', {
+                timeZone: 'Europe/Warsaw',
+              })
+            }</time
+          ><span>{readingMinutes(article.content_html)} min czytania</span>
+        </div>
+      </header>
+      <figure class="article-cover">
+        <img
+          src={article.image}
+          alt={article.image_alt}
+          width="1200"
+          height="800"
+          fetchpriority="high"
+        />{
+          article.image_caption && (
+            <figcaption>{article.image_caption}</figcaption>
+          )
+        }
+      </figure>
+      <div class="article-body" set:html={article.content_html} />
+      <section class="source-list">
+        <h2>SKĄD TO WIEMY?</h2>{
+          article.metadata.sources.length ? (
+            <ul>
+              {article.metadata.sources.map((source) => (
+                <li>
+                  <a
+                    href={source.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {source.title} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              {article.metadata.kind === 'satire'
+                ? 'Z wyobraźni redakcji. Ten tekst jest oznaczoną satyrą.'
+                : 'Autor nie dołączył odnośników do źródeł.'}
+            </p>
+          )
+        }
+      </section>
+      <div class="article-next">
+        <h2>TEORIA ZA NAMI. TERAZ PRAKTYKA.</h2><a
+          class="button dark"
+          href={article.metadata.widget === 'excuse'
+            ? '/gra/wymowki'
+            : article.metadata.widget === 'potato'
+              ? '/gra/ziemniak'
+              : '/gra/prawda-czy-durnota'}
+          >{
+            article.metadata.widget === 'excuse'
+              ? 'Wygeneruj usprawiedliwienie'
+              : article.metadata.widget === 'potato'
+                ? 'Złap ziemniaka'
+                : 'Prawda czy durnota? Sprawdź się'
+          } ↗</a
+        >
+      </div>
+    </article><aside class="article-aside">
+      <h2>POMIAR ABSURDU</h2><Durnometer
+        value={article.metadata.absurdity}
+        importance={article.metadata.importance}
+      /><p>
+        Subiektywna ocena redakcji. Nie jest miarą wiarygodności ani wynikiem
+        głosowania.
+      </p><div class="aside-stamp">
+        {
+          article.metadata.kind === 'satire'
+            ? 'ZMYŚLONE\nCELOWO'
+            : 'RZECZYWISTOŚĆ\nZNOWU WYGRAŁA'
+        }
+      </div><button class="button outline" data-share>Podaj dalej ↗</button><p>
+        Masz dość logiki?
+      </p><a href="/losowe?dziwne=1">Daj mi coś jeszcze dziwniejszego ↗</a>
+    </aside>
+  </div>
+</Layout>

@@ -1,0 +1,284 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { games } from '../../lib/games';
+const game = games.find((g) => g.slug === Astro.params.slug);
+if (!game) return Astro.rewrite('/404');
+---
+
+<Layout title={game.title} description={game.description}>
+  <nav class="breadcrumbs" aria-label="Okruszki">
+    <a href="/">Dzisiaj</a><span>/</span><a href="/gry">Gry</a><span>/</span
+    ><span>{game.title}</span>
+  </nav>
+  <header class="game-heading">
+    <span class="tiny-label">{game.kicker}</span><h1>{game.title}</h1><p>
+      {game.description}
+    </p>
+  </header>
+  <div class="game-layout">
+    <section
+      class:list={['game-stage', game.color]}
+      data-game={game.slug}
+      aria-label={game.title}
+    >
+      <noscript
+        ><p class="noscript-note">
+          Ta gra potrzebuje JavaScript. <a href="/artykuly"
+            >Artykuły działają również bez niego.</a
+          >
+        </p></noscript
+      >
+      {
+        game.slug === 'ziemniak' && (
+          <>
+            <>
+              <div class="game-toolbar">
+                <>
+                  <span>
+                    CZAS <b data-time>20.0</b> s
+                  </span>
+                  <span>
+                    ZŁAPANE <b data-hits>0</b>
+                  </span>
+                </>
+              </div>
+              <div class="potato-arena">
+                <>
+                  <button
+                    class="potato-target"
+                    aria-label="Złap ziemniaka"
+                    disabled
+                  >
+                    <img
+                      src="/art/potato.svg"
+                      width="130"
+                      height="115"
+                      alt=""
+                    />
+                  </button>
+                  <div class="arena-intro">
+                    <>
+                      <span class="tiny-label">
+                        NIE MA ŻADNEJ GŁĘBSZEJ METAFORY
+                      </span>
+                      <p>Po prostu złap ziemniaka.</p>
+                    </>
+                  </div>
+                </>
+              </div>
+              <div class="game-actions">
+                <>
+                  <button class="button dark" data-start>
+                    Zaczynamy ↗
+                  </button>
+                  <p data-result role="status">
+                    20 sekund. Każde trafienie to jeden punkt.
+                  </p>
+                </>
+              </div>
+            </>
+          </>
+        )
+      }
+      {
+        game.slug === 'prawda-czy-durnota' && (
+          <>
+            <>
+              <div class="game-toolbar">
+                <>
+                  <span>
+                    PYTANIE <b data-question-number>1</b> / 5
+                  </span>
+                  <span>
+                    PUNKTY <b data-points>0</b>
+                  </span>
+                </>
+              </div>
+              <div class="quiz-area">
+                <>
+                  <span class="question-decoration" aria-hidden="true">
+                    ?
+                  </span>
+                  <h2 data-question>
+                    Internet kłamie.
+                    <br />
+                    Ale czasem mówi prawdę.
+                  </h2>
+                  <div class="quiz-options" hidden>
+                    <>
+                      <button data-answer="true" class="button yellow">
+                        PRAWDA ✓
+                      </button>
+                      <button data-answer="false" class="button outline">
+                        DURNOTA ×
+                      </button>
+                    </>
+                  </div>
+                  <div
+                    class="quiz-explanation"
+                    data-explanation
+                    role="status"
+                    hidden
+                  />
+                </>
+              </div>
+              <div class="game-actions">
+                <>
+                  <button class="button dark" data-start>
+                    Zaczynamy ↗
+                  </button>
+                  <button class="button dark" data-next hidden>
+                    Następne pytanie ↗
+                  </button>
+                  <p data-result>
+                    Bez limitu czasu. Z wyjaśnieniami i źródłami.
+                  </p>
+                </>
+              </div>
+            </>
+          </>
+        )
+      }
+      {
+        game.slug === 'refleks' && (
+          <>
+            <>
+              <div class="game-toolbar">
+                <>
+                  <span>
+                    PRÓBA <b data-round>1</b> / 3
+                  </span>
+                  <span>JEDNOSTKA: MILISEKUNDY</span>
+                </>
+              </div>
+              <button class="reaction-pad" data-reaction>
+                <>
+                  <span class="reaction-symbol" aria-hidden="true">
+                    ↯
+                  </span>
+                  <strong data-reaction-text>KLIKNIJ, ŻEBY ZACZĄĆ</strong>
+                  <span data-reaction-help>
+                    Potem czekaj na zielony ekran i napis TERAZ.
+                  </span>
+                </>
+              </button>
+              <div class="game-actions">
+                <>
+                  <p data-result role="status">
+                    Mysz, dotyk lub spacja. Bez zgadywania.
+                  </p>
+                  <button class="button outline" data-reset>
+                    Zeruj próby
+                  </button>
+                </>
+              </div>
+            </>
+          </>
+        )
+      }
+      {
+        game.slug === 'pamiec' && (
+          <>
+            <>
+              <div class="game-toolbar">
+                <>
+                  <span>
+                    RUCHY <b data-moves>0</b>
+                  </span>
+                  <span>
+                    PARY <b data-pairs>0</b> / 6
+                  </span>
+                </>
+              </div>
+              <div class="memory-grid" aria-label="Karty do odkrycia" />
+              <div class="game-actions">
+                <>
+                  <button class="button dark" data-start>
+                    Rozdaj karty ↗
+                  </button>
+                  <p data-result role="status">
+                    Odkryj dwie karty. Znajdź wszystkie pary.
+                  </p>
+                </>
+              </div>
+            </>
+          </>
+        )
+      }
+      {
+        game.slug === 'wymowki' && (
+          <>
+            <>
+              <div class="game-toolbar">
+                <>
+                  <span>URZĄD SPRAW ODROCZONYCH</span>
+                  <span>DRUK W-42</span>
+                </>
+              </div>
+              <div class="excuse-form">
+                <>
+                  <label for="excuse-context">Czego dziś nie robimy?</label>
+                  <select id="excuse-context">
+                    <>
+                      <option value="praca">Pracy</option>
+                      <option value="spotkanie">Spotkania</option>
+                      <option value="sprzatanie">Sprzątania</option>
+                      <option value="wszystko">Absolutnie niczego</option>
+                    </>
+                  </select>
+                  <div class="excuse-paper">
+                    <>
+                      <span class="tiny-label">
+                        ZAŚWIADCZENIE O NIEMOŻNOŚCI
+                      </span>
+                      <p data-excuse>
+                        Dokument oczekuje na wygenerowanie powodu.
+                      </p>
+                      <span class="excuse-stamp">
+                        URZĘDOWO
+                        <br />
+                        NIEISTOTNE
+                      </span>
+                    </>
+                  </div>
+                </>
+              </div>
+              <div class="game-actions">
+                <>
+                  <button class="button dark" data-start>
+                    Wydaj zaświadczenie ↗
+                  </button>
+                  <button class="button outline" data-copy disabled>
+                    Kopiuj
+                  </button>
+                  <p data-result role="status">
+                    Dokument nie ma mocy prawnej. Ani żadnej innej.
+                  </p>
+                </>
+              </div>
+            </>
+          </>
+        )
+      }
+    </section><aside class="game-aside">
+      <span class="tiny-label">INSTRUKCJA DROBNEGO DRUKU</span><h2>
+        O CO TU<br />W OGÓLE CHODZI?
+      </h2><p>{game.description}</p><p>
+        {
+          game.slug === 'ziemniak'
+            ? 'Ziemniak przesuwa się po każdym trafieniu. Możesz używać dotyku, myszy albo ustawić fokus na ziemniaku i naciskać Enter. Timer biegnie także po zmianie karty.'
+            : game.slug === 'refleks'
+              ? 'Falstart nie jest wynikiem. Po trzech próbach zapisujemy medianę. Zmiana karty przerywa bieżącą próbę. To zabawa, nie badanie medyczne.'
+              : game.slug === 'pamiec'
+                ? 'Jeden ruch to odkrycie dwóch kart. Wygrywasz, kiedy wszystkie sześć par jest odkrytych. Mniej ruchów znaczy lepiej.'
+                : game.slug === 'prawda-czy-durnota'
+                  ? 'Po każdej odpowiedzi zobaczysz wyjaśnienie i źródło. Możesz je spokojnie przeczytać. Następne pytanie uruchamiasz samodzielnie.'
+                  : 'Wybierz kontekst, wygeneruj zaświadczenie i skopiuj tekst. Redakcja nie bierze udziału w późniejszej rozmowie z szefem.'
+        }
+      </p><div class="aside-stamp">ZATWIERDZONE<br />PRZEZ ZIEMNIAKA</div><a
+        href="/gry">← Wszystkie gry</a
+      ><a href="/rankingi">Moje rekordy ↗</a>
+    </aside>
+  </div>
+  <script src="../../scripts/games.ts"></script>
+</Layout>
