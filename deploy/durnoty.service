@@ -8,6 +8,7 @@ User=www-data
 Group=www-data
 WorkingDirectory=/var/www/durnoty.pl
 EnvironmentFile=/etc/durnoty.env
+Environment=XDG_CACHE_HOME=/var/lib/durnoty/.cache
 ExecStart=/opt/durnoty-runtime/node_modules/node/bin/node /var/www/durnoty.pl/dist/server/entry.mjs
 Restart=on-failure
 RestartSec=5

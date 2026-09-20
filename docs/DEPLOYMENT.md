@@ -6,6 +6,8 @@ Portal korzysta z portu loopback 3010, oddzielnej usługi `durnoty.service`, baz
 
 Konfiguracje do odtworzenia są w `deploy/`. Dostosuj ścieżkę Node na innym serwerze. Systemd uruchamia aplikację jako `www-data`, z zapisem ograniczonym do katalogu danych. Nie używamy sesji Astro.
 
+Generator kart OpenGraph korzysta z pakietu systemowego `fonts-dejavu-core`. Jego cache fontconfig jest kierowany przez usługę do `/var/lib/durnoty/.cache`, aby działał również przy `ProtectSystem=strict`. Na nowym serwerze zainstaluj ten font przed uruchomieniem generatora.
+
 ## Środowisko
 
 ```dotenv
