@@ -817,3 +817,83 @@
   40%, 80% { transform: translateX(8px) rotate(1deg); }
 }
 
+/* --- Fizyka Kieszeni (Rozplątywanie Kabli) --- */
+.cable-arena {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+}
+.cable-difficulty-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #e6e3d6;
+  border-bottom: 1px solid var(--line);
+  font: 11px var(--mono);
+  flex-wrap: wrap;
+}
+.cable-diff-btn {
+  background: #fff;
+  border: 1px solid var(--ink);
+  padding: 5px 12px;
+  font: 700 11px var(--mono);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cable-diff-btn:hover {
+  background: var(--yellow);
+}
+.cable-diff-btn.active {
+  background: var(--ink);
+  color: var(--yellow);
+}
+.cable-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #faf8f0;
+  overflow: hidden;
+}
+#cable-canvas {
+  max-width: 100%;
+  height: auto;
+  cursor: grab;
+  touch-action: none;
+  display: block;
+}
+#cable-canvas:active {
+  cursor: grabbing;
+}
+.cable-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(32, 33, 29, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.cable-win-card {
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 30px 40px;
+  max-width: 420px;
+  text-align: center;
+}
+.cable-win-card h3 {
+  font: 700 32px var(--display);
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+.cable-win-card p {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 25px;
+}
+
+

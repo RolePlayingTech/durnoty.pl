@@ -47,6 +47,14 @@ export const games = [
     symbol: '§',
     color: 'paper',
   },
+  {
+    slug: 'kable',
+    title: 'Fizyka kieszeni',
+    kicker: 'ŁAMIGŁÓWKA · TEORIA WĘZŁÓW',
+    description: 'Włożyłeś kabel na 10 sekund. Wyciągnąłeś 8-wymiarową czarną dziurę. Rozplącz to.',
+    symbol: '☍',
+    color: 'mint',
+  },
 ] as const;
 
 export const questions = [

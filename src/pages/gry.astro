@@ -8,7 +8,7 @@ import { games } from '../lib/games';
     <span class="tiny-label">ROZRYWKA O ZNIKOMYM ZNACZENIU</span><h1>
       JESZCZE JEDNA RUNDA.
     </h1><p>
-      Pięć sposobów, żeby odłożyć coś na później. Bez logowania, instalowania i
+      {games.length === 7 ? 'Siedem' : games.length === 6 ? 'Sześć' : games.length} sposobów, żeby odłożyć coś na później. Bez logowania, instalowania i
       pytań o sens życia.
     </p>
   </header><div class="games-catalog">

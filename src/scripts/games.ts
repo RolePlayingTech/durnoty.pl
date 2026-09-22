@@ -446,3 +446,309 @@ if (stage?.dataset.game === 'guzik') {
   });
 }
 
+if (stage?.dataset.game === 'kable') {
+  interface NodePoint {
+    id: number;
+    x: number;
+    y: number;
+    label: string;
+    radius: number;
+  }
+  interface Edge {
+    u: number;
+    v: number;
+  }
+
+  const canvas = stage.querySelector<HTMLCanvasElement>('#cable-canvas')!;
+  const ctx = canvas.getContext('2d')!;
+  const overlay = stage.querySelector<HTMLElement>('[data-cable-overlay]')!;
+  const winText = stage.querySelector<HTMLElement>('[data-cable-win-text]')!;
+  const diffButtons = stage.querySelectorAll<HTMLButtonElement>('[data-diff]');
+  const shuffleBtn = stage.querySelector<HTMLButtonElement>('[data-cable-shuffle]')!;
+  const restartBtn = stage.querySelector<HTMLButtonElement>('[data-cable-restart]')!;
+
+  let nodes: NodePoint[] = [];
+  let edges: Edge[] = [];
+  let draggedNode: NodePoint | null = null;
+  let dragOffset = { x: 0, y: 0 };
+  let moves = 0;
+  let startTime = performance.now();
+  let timerInterval: ReturnType<typeof setInterval> | undefined;
+  let won = false;
+  let currentDiff = 'easy';
+
+  const labels = ['USB-C', 'JACK', 'HDMI', 'PWR', 'AUX', 'LIGHT', 'LAN', 'VGA', 'DISPLAY', 'OPTIC', 'MINI'];
+
+  function ccw(p1: { x: number; y: number }, p2: { x: number; y: number }, p3: { x: number; y: number }) {
+    return (p3.y - p1.y) * (p2.x - p1.x) > (p2.y - p1.y) * (p3.x - p1.x);
+  }
+
+  function doIntersect(p1: { x: number; y: number }, p2: { x: number; y: number }, p3: { x: number; y: number }, p4: { x: number; y: number }) {
+    if (
+      Math.max(p1.x, p2.x) < Math.min(p3.x, p4.x) ||
+      Math.max(p3.x, p4.x) < Math.min(p1.x, p2.x) ||
+      Math.max(p1.y, p2.y) < Math.min(p3.y, p4.y) ||
+      Math.max(p3.y, p4.y) < Math.min(p1.y, p2.y)
+    ) {
+      return false;
+    }
+    return ccw(p1, p3, p4) !== ccw(p2, p3, p4) && ccw(p1, p2, p3) !== ccw(p1, p2, p4);
+  }
+
+  function countCrossings(): { count: number; intersectingEdges: Set<number> } {
+    let count = 0;
+    const intersectingEdges = new Set<number>();
+
+    for (let i = 0; i < edges.length; i++) {
+      const e1 = edges[i]!;
+      const n1 = nodes[e1.u]!;
+      const n2 = nodes[e1.v]!;
+
+      for (let j = i + 1; j < edges.length; j++) {
+        const e2 = edges[j]!;
+        if (e1.u === e2.u || e1.u === e2.v || e1.v === e2.u || e1.v === e2.v) {
+          continue;
+        }
+        const n3 = nodes[e2.u]!;
+        const n4 = nodes[e2.v]!;
+
+        if (doIntersect(n1, n2, n3, n4)) {
+          count++;
+          intersectingEdges.add(i);
+          intersectingEdges.add(j);
+        }
+      }
+    }
+    return { count, intersectingEdges };
+  }
+
+  function initLevel(diff: string) {
+    currentDiff = diff;
+    won = false;
+    moves = 0;
+    startTime = performance.now();
+    overlay.hidden = true;
+    text('[data-cable-moves]', 0);
+    text('[data-cable-time]', '00:00');
+
+    const nodeCount = diff === 'easy' ? 5 : diff === 'medium' ? 8 : 11;
+    const w = canvas.width;
+    const h = canvas.height;
+    const padding = 55;
+
+    // 1. Create a guaranteed planar graph (cycle + non-crossing chords)
+    edges = [];
+    for (let i = 0; i < nodeCount; i++) {
+      edges.push({ u: i, v: (i + 1) % nodeCount });
+    }
+    if (diff === 'easy') {
+      edges.push({ u: 0, v: 2 });
+      edges.push({ u: 0, v: 3 });
+    } else if (diff === 'medium') {
+      edges.push({ u: 0, v: 3 });
+      edges.push({ u: 0, v: 5 });
+      edges.push({ u: 3, v: 5 });
+      edges.push({ u: 1, v: 3 });
+      edges.push({ u: 5, v: 7 });
+    } else {
+      edges.push({ u: 0, v: 4 });
+      edges.push({ u: 0, v: 8 });
+      edges.push({ u: 4, v: 8 });
+      edges.push({ u: 1, v: 3 });
+      edges.push({ u: 5, v: 7 });
+      edges.push({ u: 8, v: 10 });
+      edges.push({ u: 4, v: 6 });
+      edges.push({ u: 0, v: 2 });
+    }
+
+    // 2. Scramble node positions randomly inside canvas
+    nodes = [];
+    for (let i = 0; i < nodeCount; i++) {
+      let x = padding + Math.random() * (w - 2 * padding);
+      let y = padding + Math.random() * (h - 2 * padding);
+      nodes.push({
+        id: i,
+        x,
+        y,
+        label: labels[i % labels.length]!,
+        radius: 20,
+      });
+    }
+
+    // Ensure initial state has crossings
+    const initial = countCrossings();
+    if (initial.count === 0) {
+      // Swap first two nodes to guarantee a tangled knot
+      const tempX = nodes[0]!.x;
+      nodes[0]!.x = nodes[1]!.x;
+      nodes[1]!.x = tempX;
+    }
+
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      if (won) return;
+      const elapsedSec = Math.floor((performance.now() - startTime) / 1000);
+      const mins = String(Math.floor(elapsedSec / 60)).padStart(2, '0');
+      const secs = String(elapsedSec % 60).padStart(2, '0');
+      text('[data-cable-time]', `${mins}:${secs}`);
+    }, 1000);
+
+    draw();
+    start();
+  }
+
+  function draw() {
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // 1. Draw subtle grid background
+    ctx.strokeStyle = '#e6e3d6';
+    ctx.lineWidth = 1;
+    const gridSize = 24;
+    for (let x = 0; x < w; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = 0; y < h; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    const { count, intersectingEdges } = countCrossings();
+    text('[data-crossings-count]', count);
+
+    // 2. Draw Cables (Edges)
+    for (let i = 0; i < edges.length; i++) {
+      const edge = edges[i]!;
+      const n1 = nodes[edge.u]!;
+      const n2 = nodes[edge.v]!;
+      const isIntersecting = intersectingEdges.has(i);
+
+      ctx.beginPath();
+      ctx.moveTo(n1.x, n1.y);
+      // Slight smooth curve
+      const midX = (n1.x + n2.x) / 2;
+      const midY = (n1.y + n2.y) / 2;
+      ctx.quadraticCurveTo(midX, midY, n2.x, n2.y);
+
+      if (won) {
+        ctx.strokeStyle = '#2e7d32';
+        ctx.lineWidth = 3.5;
+      } else if (isIntersecting) {
+        ctx.strokeStyle = '#db3427';
+        ctx.lineWidth = 3.5;
+      } else {
+        ctx.strokeStyle = '#20211d';
+        ctx.lineWidth = 2.5;
+      }
+      ctx.stroke();
+    }
+
+    // 3. Draw Plugs (Nodes)
+    for (const node of nodes) {
+      const isDragged = draggedNode?.id === node.id;
+
+      // Outer shadow/ring
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+      ctx.fillStyle = isDragged ? '#f8d94d' : '#f1eedf';
+      ctx.fill();
+      ctx.lineWidth = isDragged ? 3 : 2;
+      ctx.strokeStyle = '#20211d';
+      ctx.stroke();
+
+      // Inner plug casing
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.radius - 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#20211d';
+      ctx.fill();
+
+      // Plug label text
+      ctx.font = 'bold 9px monospace';
+      ctx.fillStyle = '#f8d94d';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(node.label, node.x, node.y);
+    }
+
+    // Check victory condition
+    if (count === 0 && !won) {
+      won = true;
+      clearInterval(timerInterval);
+      const elapsedSec = Math.floor((performance.now() - startTime) / 1000);
+      winText.textContent = `Rozplątano w ${elapsedSec} s i ${moves} ruchach. Poziom: ${currentDiff.toUpperCase()}. Prawa fizyki ocalone.`;
+      overlay.hidden = false;
+      saveScore('kable-czas', elapsedSec, true);
+      saveScore('kable-ruchy', moves, true);
+      unlock('memory');
+      if (currentDiff === 'hard') unlock('secret');
+      event('cables_untangled', { level: currentDiff, moves, time: elapsedSec });
+    }
+  }
+
+  function getCanvasCoords(e: PointerEvent): { x: number; y: number } {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY,
+    };
+  }
+
+  canvas.addEventListener('pointerdown', (e) => {
+    const pos = getCanvasCoords(e);
+    for (const node of nodes) {
+      const dx = pos.x - node.x;
+      const dy = pos.y - node.y;
+      if (dx * dx + dy * dy <= node.radius * node.radius * 1.8) {
+        draggedNode = node;
+        dragOffset = { x: dx, y: dy };
+        canvas.setPointerCapture(e.pointerId);
+        draw();
+        break;
+      }
+    }
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    if (!draggedNode) return;
+    const pos = getCanvasCoords(e);
+    const pad = 24;
+    draggedNode.x = Math.max(pad, Math.min(canvas.width - pad, pos.x - dragOffset.x));
+    draggedNode.y = Math.max(pad, Math.min(canvas.height - pad, pos.y - dragOffset.y));
+    draw();
+  });
+
+  const endDrag = () => {
+    if (draggedNode) {
+      draggedNode = null;
+      moves++;
+      text('[data-cable-moves]', moves);
+      draw();
+    }
+  };
+
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', endDrag);
+
+  diffButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      diffButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      initLevel(btn.dataset.diff || 'easy');
+    });
+  });
+
+  shuffleBtn?.addEventListener('click', () => initLevel(currentDiff));
+  restartBtn?.addEventListener('click', () => initLevel(currentDiff));
+
+  initLevel('easy');
+}
+
+
