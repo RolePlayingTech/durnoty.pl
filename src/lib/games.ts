@@ -8,6 +8,14 @@ export const games = [
     color: 'yellow',
   },
   {
+    slug: 'guzik',
+    title: 'Czerwony Guzik',
+    kicker: 'NIE NACISKAĆ · REAKTANCJA',
+    description: 'Oficjalny zakaz dotykania. Zobaczmy, ile sekund wytrzymasz, zanim natura weźmie górę.',
+    symbol: '●',
+    color: 'red',
+  },
+  {
     slug: 'prawda-czy-durnota',
     title: 'Prawda czy durnota?',
     kicker: '5 PYTAŃ · QUIZ',

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#e8e1cb"/>
+  <!-- Musical notes in the air -->
+  <g fill="#20211d" opacity="0.6">
+    <text x="100" y="140" font-size="28">♫</text>
+    <text x="180" y="100" font-size="34">♬</text>
+    <text x="420" y="110" font-size="30">♩</text>
+    <text x="490" y="140" font-size="36">♫</text>
+    <text x="290" y="90" font-size="24">♪</text>
+  </g>
+  <!-- Cobblestones ground -->
+  <path d="M0 290 L600 290 L600 400 L0 400 Z" fill="#b5ab96" stroke="#20211d" stroke-width="3"/>
+  <!-- Dancing figures silhouettes in chaotic motion -->
+  <!-- Dancer 1 (left) -->
+  <g transform="translate(150, 160)" stroke="#20211d" stroke-width="4" fill="#df7662">
+    <circle cx="20" cy="20" r="16"/>
+    <path d="M20 36 L15 85 L-10 120" stroke-width="5" fill="none"/>
+    <path d="M15 85 L45 125" stroke-width="5" fill="none"/>
+    <path d="M20 45 L-15 30 L-25 10" stroke-width="4" fill="none"/>
+    <path d="M20 45 L50 60 L60 85" stroke-width="4" fill="none"/>
+  </g>
+  <!-- Dancer 2 (center, wild spin) -->
+  <g transform="translate(280, 140)" stroke="#20211d" stroke-width="4" fill="#f8d94d">
+    <circle cx="20" cy="20" r="18"/>
+    <path d="M20 38 L25 90 L-5 130" stroke-width="5" fill="none"/>
+    <path d="M25 90 L55 110 L80 135" stroke-width="5" fill="none"/>
+    <path d="M20 45 L-20 20 L-35 45" stroke-width="4" fill="none"/>
+    <path d="M20 45 L65 25 L80 5" stroke-width="4" fill="none"/>
+  </g>
+  <!-- Dancer 3 (right, exhausted leap) -->
+  <g transform="translate(420, 155)" stroke="#20211d" stroke-width="4" fill="#b8cbd2">
+    <circle cx="20" cy="20" r="16"/>
+    <path d="M20 36 L10 80 L-15 120" stroke-width="5" fill="none"/>
+    <path d="M10 80 L35 125" stroke-width="5" fill="none"/>
+    <path d="M20 45 L-15 65" stroke-width="4" fill="none"/>
+    <path d="M20 45 L55 35 L70 60" stroke-width="4" fill="none"/>
+  </g>
+  <!-- Sweat / exhaustion drops -->
+  <g fill="#2460a0">
+    <circle cx="160" cy="170" r="3"/>
+    <circle cx="330" cy="140" r="4"/>
+    <circle cx="450" cy="160" r="3"/>
+    <circle cx="260" cy="180" r="3"/>
+  </g>
+  <!-- Text banner -->
+  <rect x="110" y="30" width="380" height="42" fill="#20211d" stroke="#f8d94d" stroke-width="2"/>
+  <text x="300" y="58" font-family="'Courier New', monospace" font-weight="bold" font-size="16" fill="#f8d94d" text-anchor="middle" letter-spacing="2">1518: PLAGA TAŃCA W STRASBURGU</text>
+  <text x="300" y="365" font-family="'Courier New', monospace" font-size="13" fill="#20211d" text-anchor="middle">Rada miasta: „Trzeba to roztańczyć!” · Wynik: 400 wykończonych tancerzy</text>
+</svg>

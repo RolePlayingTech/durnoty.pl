@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#e8ded1"/>
+  <!-- Cannon silhouette background -->
+  <g fill="#716e63" opacity="0.35">
+    <rect x="50" y="240" width="120" height="14" rx="4" transform="rotate(-15 110 247)"/>
+    <circle cx="140" cy="270" r="30" fill="none" stroke="#716e63" stroke-width="8"/>
+    <rect x="430" y="220" width="130" height="14" rx="4" transform="rotate(15 495 227)"/>
+    <circle cx="450" cy="270" r="30" fill="none" stroke="#716e63" stroke-width="8"/>
+  </g>
+  <!-- Ground -->
+  <path d="M0 290 Q300 270 600 290 L600 400 L0 400 Z" fill="#b5ab96" stroke="#20211d" stroke-width="3"/>
+  <!-- Potatoes -->
+  <g fill="#c49a45" stroke="#20211d" stroke-width="2">
+    <ellipse cx="230" cy="315" rx="16" ry="11" transform="rotate(-10 230 315)"/>
+    <ellipse cx="370" cy="320" rx="14" ry="10" transform="rotate(20 370 320)"/>
+    <ellipse cx="200" cy="335" rx="18" ry="12"/>
+    <ellipse cx="400" cy="330" rx="15" ry="10"/>
+  </g>
+  <!-- The Pig -->
+  <g transform="translate(240, 160)" stroke="#20211d" stroke-width="4">
+    <!-- Body -->
+    <ellipse cx="60" cy="65" rx="70" ry="48" fill="#e5989b"/>
+    <!-- Legs -->
+    <rect x="15" y="95" width="16" height="30" rx="4" fill="#e5989b"/>
+    <rect x="40" y="98" width="16" height="28" rx="4" fill="#e5989b"/>
+    <rect x="75" y="98" width="16" height="28" rx="4" fill="#e5989b"/>
+    <rect x="95" y="95" width="16" height="30" rx="4" fill="#e5989b"/>
+    <!-- Head -->
+    <circle cx="120" cy="50" r="32" fill="#e5989b"/>
+    <!-- Snout -->
+    <ellipse cx="148" cy="55" rx="14" ry="11" fill="#b56576"/>
+    <circle cx="145" cy="55" r="3" fill="#20211d"/>
+    <circle cx="152" cy="55" r="3" fill="#20211d"/>
+    <!-- Eye -->
+    <circle cx="125" cy="40" r="4" fill="#20211d"/>
+    <!-- Ear -->
+    <path d="M105 28 L118 12 L125 28 Z" fill="#b56576"/>
+    <!-- Curly tail -->
+    <path d="M-10 65 Q-25 50 -15 40 Q-5 45 -18 55" fill="none" stroke-width="3"/>
+    <!-- Potato in mouth -->
+    <ellipse cx="162" cy="62" rx="12" ry="8" fill="#c49a45" stroke="#20211d" stroke-width="2"/>
+  </g>
+  <!-- Text banner -->
+  <rect x="130" y="30" width="340" height="42" fill="#f8d94d" stroke="#20211d" stroke-width="3"/>
+  <text x="300" y="58" font-family="'Courier New', monospace" font-weight="bold" font-size="18" fill="#20211d" text-anchor="middle" letter-spacing="2">1859: WOJNA O ŚWINIĘ</text>
+  <text x="300" y="375" font-family="'Courier New', monospace" font-size="13" fill="#716e63" text-anchor="middle">5 okrętów wojennych · 1 świnia w kartoflach · 0 ofiar w ludziach</text>
+</svg>

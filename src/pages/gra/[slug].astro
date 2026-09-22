@@ -81,6 +81,39 @@ if (!game) return Astro.rewrite('/404');
         )
       }
       {
+        game.slug === 'guzik' && (
+          <>
+            <div class="game-toolbar">
+              <span>
+                CZAS OPORU <b data-resistance-time>0.0</b> s
+              </span>
+              <span>
+                KLIKNIĘCIA <b data-clicks-count>0</b>
+              </span>
+            </div>
+            <div class="button-arena">
+              <div class="button-casing">
+                <div class="button-warning-label">⚠ URZĘDOWY ZAKAZ NACISKANIA ⚠</div>
+                <button class="big-red-button" data-main-red-button aria-label="Czerwony guzik zakazu">
+                  NIE NACISKAĆ!
+                </button>
+                <div class="button-reaction-box" data-reaction-box role="status">
+                  Zegar oporu bije od wejścia na stronę. Każda sekunda bez kliknięcia to triumf woli.
+                </div>
+              </div>
+            </div>
+            <div class="game-actions">
+              <button class="button outline" data-reset-button>
+                Resetuj próbę
+              </button>
+              <p data-result role="status">
+                Psychologia nazywa to reaktancją. Przycisk nazywa to durnotą.
+              </p>
+            </div>
+          </>
+        )
+      }
+      {
         game.slug === 'prawda-czy-durnota' && (
           <>
             <>
@@ -267,6 +300,8 @@ if (!game) return Astro.rewrite('/404');
         {
           game.slug === 'ziemniak'
             ? 'Ziemniak przesuwa się po każdym trafieniu. Możesz używać dotyku, myszy albo ustawić fokus na ziemniaku i naciskać Enter. Timer biegnie także po zmianie karty.'
+            : game.slug === 'guzik'
+              ? 'Mierzony jest czas Twojej silnej woli od wejścia na stronę. Czy potrafisz nie kliknąć? A jeśli już klikniesz – zobaczmy, co ma do powiedzenia przycisk.'
             : game.slug === 'refleks'
               ? 'Falstart nie jest wynikiem. Po trzech próbach zapisujemy medianę. Zmiana karty przerywa bieżącą próbę. To zabawa, nie badanie medyczne.'
               : game.slug === 'pamiec'

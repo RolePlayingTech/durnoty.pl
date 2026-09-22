@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#f1eedf"/>
+  <!-- Spears in background -->
+  <g stroke="#716e63" stroke-width="3" opacity="0.4">
+    <line x1="120" y1="320" x2="220" y2="90"/>
+    <polygon points="218,85 225,95 212,98" fill="#716e63"/>
+    <line x1="160" y1="330" x2="270" y2="100"/>
+    <polygon points="268,95 275,105 262,108" fill="#716e63"/>
+    <line x1="480" y1="320" x2="380" y2="90"/>
+    <polygon points="382,85 375,95 388,98" fill="#716e63"/>
+    <line x1="440" y1="330" x2="330" y2="100"/>
+    <polygon points="332,95 325,105 338,108" fill="#716e63"/>
+  </g>
+  <!-- Altar / pedestal -->
+  <rect x="200" y="240" width="200" height="70" fill="#d6bd95" stroke="#20211d" stroke-width="4"/>
+  <rect x="180" y="300" width="240" height="30" fill="#b5ab96" stroke="#20211d" stroke-width="4"/>
+  <!-- The Sacred Oak Bucket -->
+  <g transform="translate(245, 120)" stroke="#20211d" stroke-width="4">
+    <!-- Bucket base & slats -->
+    <path d="M10 30 L20 120 L90 120 L100 30 Z" fill="#8c6239"/>
+    <!-- Iron hoops -->
+    <path d="M13 55 L97 55" stroke="#20211d" stroke-width="6"/>
+    <path d="M18 95 L92 95" stroke="#20211d" stroke-width="6"/>
+    <!-- Vertical slat lines -->
+    <line x1="38" y1="30" x2="42" y2="120" stroke="#5a3d1e" stroke-width="2"/>
+    <line x1="55" y1="30" x2="55" y2="120" stroke="#5a3d1e" stroke-width="2"/>
+    <line x1="72" y1="30" x2="68" y2="120" stroke="#5a3d1e" stroke-width="2"/>
+    <!-- Handle -->
+    <path d="M5 40 Q55 -15 105 40" fill="none" stroke="#20211d" stroke-width="5"/>
+    <circle cx="55" cy="12" r="6" fill="#f8d94d"/>
+  </g>
+  <!-- Halo / Holy rays for the bucket -->
+  <g stroke="#db3427" stroke-width="2" opacity="0.6">
+    <line x1="300" y1="100" x2="300" y2="80"/>
+    <line x1="270" y1="110" x2="255" y2="95"/>
+    <line x1="330" y1="110" x2="345" y2="95"/>
+    <line x1="250" y1="130" x2="230" y2="125"/>
+    <line x1="350" y1="130" x2="370" y2="125"/>
+  </g>
+  <!-- Text banner -->
+  <rect x="120" y="30" width="360" height="42" fill="#db3427" stroke="#20211d" stroke-width="3"/>
+  <text x="300" y="58" font-family="'Courier New', monospace" font-weight="bold" font-size="17" fill="#fff" text-anchor="middle" letter-spacing="2">1325: NAJŚWIĘTSZE WIADRO ZE STUDNI</text>
+  <text x="300" y="365" font-family="'Courier New', monospace" font-size="13" fill="#716e63" text-anchor="middle">Bitwa pod Zappolino · 2000 poległych · Wiadro wisi w Modenie do dziś</text>
+</svg>

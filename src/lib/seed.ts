@@ -114,6 +114,85 @@ const entries = [
     },
     content_html: `<p><strong>Satyra redakcyjna.</strong> Poniższy protokół nie opisuje badania naukowego. Nie było komisji etycznej. Był wtorek.</p><h2>Hipoteza</h2><p>Człowiek czyta instrukcje i postępuje zgodnie z ich treścią. Szczególnie kiedy instrukcja składa się z dwóch słów.</p><h2>Metoda</h2><p>Na stronie umieszczono czerwony przycisk. Obok napisano, żeby go nie klikać. Założono, że to wyczerpuje zagadnienie komunikacji.</p><h2>Co poszło źle</h2><p>Osoba odpowiedzialna za umieszczenie przycisku kliknęła go „żeby sprawdzić”. Następnie sprawdziła jeszcze raz. Komisja, złożona z tej samej osoby, uznała to za procedurę techniczną.</p><h2>Werdykt</h2><p>Guzik działa. Hipoteza nie. Zamówiono większy napis.</p><blockquote>Dalsze badania odłożono, ponieważ ktoś znowu nacisnął.</blockquote>`,
   },
+  {
+    slug: 'wojna-o-swinie-1859',
+    title: 'Wojna o świnię (1859). Dwa mocarstwa celowały z armat przez kartofle.',
+    excerpt:
+      'Brytyjski wieprz zjadł amerykańskie ziemniaki na wyspie San Juan. Efekt: 5 okrętów wojennych, setki żołnierzy i kryzys międzynarodowy.',
+    image: '/art/pig-war.svg',
+    image_alt: 'Świnia jedząca ziemniaki na tle armat i okrętów, ilustracja',
+    image_caption:
+      'Ilustracja redakcyjna. Wieprz nie posiadał obywatelstwa brytyjskiego ani amerykańskiego.',
+    metadata: {
+      category: 'historia',
+      absurdity: 95,
+      importance: 42,
+      sources: [
+        {
+          title: 'U.S. National Park Service — The Pig War (San Juan Island)',
+          url: 'https://www.nps.gov/sajh/learn/historyculture/the-pig-war.htm',
+        },
+        {
+          title: 'The British National Archives — San Juan Boundary Dispute',
+          url: 'https://www.nationalarchives.gov.uk/',
+        },
+      ],
+      widget: 'quiz',
+    },
+    content_html: `<p>15 czerwca 1859 roku na małej wyspie San Juan doszło do incydentu, który w podręcznikach wojskowości zapisał się jako najbardziej kuriozalny kryzys XIX wieku.</p><h2>Kartofle niezgody</h2><p>Amerykański osadnik Lyman Cutlar zauważył w swoim ogrodzie wielką czarną świnię wyjadającą kartofle. W przypływie frustracji zastrzelił zwierzę. Problem polegał na tym, że wieprz należał do Charlesa Griffina, pracownika brytyjskiej Kompanii Zatoki Hudsona.</p><p>Kiedy Cutlar zaoferował 10 dolarów zadośćuczynienia, Brytyjczycy zażądali stu. Cutlar uznał to za zdzierstwo i odparł, że świnia niszczyła jego własność. W odpowiedzi przedstawiciel brytyjski zagroził aresztowaniem Amerykanina.</p><h2>Eskalacja godna imperium</h2><p>Sprawa błyskawicznie trafiła do wojskowych. Na wyspę wkroczył amerykański kapitan George Pickett z oddziałem 66 żołnierzy. Gdy Brytyjczycy zobaczyli amerykańskie mundury, gubernator James Douglas wysłał 5 okrętów wojennych, ponad 2000 żołnierzy i 70 dział.</p><p>Przez kilka tygodni żołnierze obu mocarstw stali naprzeciwko siebie, obrzucając się wyzwiskami i czekając na rozkaz otwarcia ognia. Na szczęście brytyjski kontradmirał Robert Baynes odmówił wydania rozkazu do ataku, stwierdzając trzeźwo, że „dwa wielkie narody nie będą toczyć wojny z powodu świni”.</p><blockquote>Jedyną ofiarą śmiertelną tego międzynarodowego kryzysu pozostał wieprz w kartoflach.</blockquote><p>Ostateczny spór terytorialny rozstrzygnął w 1872 roku niemiecki cesarz Wilhelm I na drodze arbitrażu, przyznając wyspę Stanom Zjednoczonym.</p>`,
+  },
+  {
+    slug: 'wojna-o-wiadro-1325',
+    title: 'Wojna o dębowe wiadro (1325). 2000 rycerzy poległo za drewniany ceber.',
+    excerpt:
+      'Rycerze Modeny ukradli wiadro ze studni w Bolonii. Wybuchła bitwa pod Zappolino, a trofeum do dziś wisi w dzwonnicy katedry.',
+    image: '/art/bucket-war.svg',
+    image_alt: 'Średniowieczne drewniane wiadro na postumencie otoczone rycerzami',
+    image_caption:
+      'Ilustracja redakcyjna. Wiadro naprawdę istnieje i jest eksponatem muzealnym.',
+    metadata: {
+      category: 'historia',
+      absurdity: 97,
+      importance: 51,
+      sources: [
+        {
+          title: 'Museo Civico di Modena — La Secchia Rapita',
+          url: 'https://www.museocivicomodena.it/',
+        },
+        {
+          title: 'Encyclopaedia Britannica — Battle of Zappolino (1325)',
+          url: 'https://www.britannica.com/',
+        },
+      ],
+    },
+    content_html: `<p>W listopadzie 1325 roku pod Zappolino rozegrała się jedna z najkrwawszych bitew średniowiecznych Włoch. Choć tłem był długoletni konflikt gibelinów z gwelfami, iskrą zapalną i symbolem stało się zwykłe drewniane wiadro ze studni miejskiej.</p><h2>Nocny rajd po ceber</h2><p>Według kronik oddział żołnierzy z Modeny przedarł się pod mury Bolonii i zabrał dębowe wiadro używane do czerpania wody ze studni publicznej. Kiedy bolończycy zażądali zwrotu własności komunalnej, Modena odmówiła. Poszło o miejski honor i polityczny prestiż.</p><p>Bolonia zmobilizowała armię liczącą około 30 000 pieszych i 2000 jeźdźców. Modena wystawiła zaledwie 5000 piechurów i 2000 rycerzy. Mimo druzgocącej przewagi liczebnej Bolonii, to wojska Modeny odniosły spektakularne zwycięstwo w zaledwie dwie godziny.</p><h2>Trofeum w katedrze</h2><p>W bitwie zginęło ponad 2000 rycerzy i piechurów. Zwycięzcy z Modeny powrócili do miasta w triumfalnym pochodzie, niosąc wiadro na czele kolumny.</p><p>Drewniany ceber został uroczyście zawieszony na łańcuchu w dzwonnicy katedralnej (Torre della Ghirlandina), gdzie wisiał przez stulecia. Dziś jego wierna replika znajduje się w wieży, a starannie zakonserwowany XIV-wieczny oryginał można podziwiać w Palazzo Comunale w Modenie.</p><blockquote>Ludzkość potrafi znaleźć niezliczone powody do bitew. Dębowe wiadro pozostaje jednak w ścisłej czołówce historycznego absurdu.</blockquote>`,
+  },
+  {
+    slug: 'plaga-tanca-strasburg-1518',
+    title: 'Plaga tańca w Strasburgu (1518). Miasto wynajęło orkiestrę, żeby to roztańczyć.',
+    excerpt:
+      'Kobieta zaczęła tańczyć na ulicy bez muzyki. Po miesiącu skakało 400 osób aż do wycieńczenia. Lekarstwo władz: więcej muzyki.',
+    image: '/art/dancing-plague.svg',
+    image_alt: 'Mieszczanie tańczący w amoku na średniowiecznym rynku, ilustracja',
+    image_caption:
+      'Rycina redakcyjna. Histerię zbiorową udokumentowały akta miejskie Strasburga.',
+    metadata: {
+      category: 'dziwne',
+      absurdity: 92,
+      importance: 60,
+      sources: [
+        {
+          title: 'John Waller — A Time to Dance, a Time to Die (The Lancet)',
+          url: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(09)60386-X/fulltext',
+        },
+        {
+          title: 'British Medical Journal — The Dancing Plague of 1518',
+          url: 'https://www.bmj.com/',
+        },
+      ],
+    },
+    content_html: `<p>W upalny lipiec 1518 roku w Strasburgu kobieta nazywana Frau Troffea wyszła na wąską uliczkę i zaczęła tańczyć. Nie grała żadna muzyka, a jej twarz wyrażała raczej przerażenie niż radość. Mimo to nie potrafiła przestać.</p><h2>Epidemia w rytmie nieszczęścia</h2><p>W ciągu czterech dni do samotnej tancerki dołączyły 34 osoby. Przed końcem miesiąca ulicami Strasburga w szaleńczym, nieustannym transie miotało się już ponad 400 mieszkańców. Ludzie tańczyli dniem i nocą na ostrych brukach, doznając zawałów, udarów i skrajnego wycieńczenia.</p><h2>Rada miasta podejmuje działania</h2><p>Zaniepokojone władze miejskie zasięgnęły opinii cechu lekarzy. Medycy wykluczyli opętanie i orzekli, że przyczyną jest „gorąca krew”, z której należy się po prostu... wypocić. Rozwiązanie?</p><p>Rada miejska wynajęła profesjonalnych muzykantów z fletami i bębnami, zatrudniła silnych pomocników do podtrzymywania słabnących tancerzy oraz wybudowała specjalną drewnianą scenę na targu zbożowym, aby tancerze mieli wygodne podłoże do wyzdrowienia.</p><blockquote>Skutek medyczny: muzyka przyciągnęła kolejnych gapiów, a liczba tańczących gwałtownie wzrosła.</blockquote><p>Ostatecznie zdesperowane władze zorientowały się w pomyłce, zakazały wszelkiej muzyki w mieście i zorganizowały pielgrzymki do kaplicy św. Wita, gdzie po modlitwach i spoczynku zjawisko stopniowo wygasło. Współcześni historycy medycyny wskazują na psychozę histeryczną wywołaną głodem i skrajnym stresem społecznym.</p>`,
+  },
 ];
 
 export const seedArticles: Article[] = entries.map((entry, i) => ({

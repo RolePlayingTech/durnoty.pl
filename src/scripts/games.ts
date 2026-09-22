@@ -350,3 +350,99 @@ if (stage?.dataset.game === 'wymowki') {
     }
   });
 }
+
+if (stage?.dataset.game === 'guzik') {
+  const btn = $<HTMLButtonElement>('[data-main-red-button]');
+  const resetBtn = $<HTMLButtonElement>('[data-reset-button]');
+  const reactionBox = $('[data-reaction-box]');
+  const casing = $('.button-casing');
+  let startTime = performance.now();
+  let clicks = 0;
+  let timerInterval: ReturnType<typeof setInterval> | undefined;
+  let clicked = false;
+
+  const timerTick = () => {
+    if (clicked) return;
+    const elapsed = (performance.now() - startTime) / 1000;
+    text('[data-resistance-time]', elapsed.toFixed(1));
+  };
+  timerInterval = setInterval(timerTick, 100);
+
+  const buttonReactions = [
+    'Mówiłem: NIE NACISKAĆ. Dlaczego to zrobiłeś?',
+    'Drugi raz? To już nie przypadek. To wybór życiowy.',
+    'Trzy kliknięcia. Twój poziom silnej woli szacujemy na 4%.',
+    'Przycisk odnotował Twoje nieposłuszeństwo i wysłał raport do nikogo.',
+    'Czy naciskanie czerwonych rzeczy sprawia Ci ulgę egzystencjalną?',
+    'Oficjalny komunikat: Przycisk zaczyna czuć się niekomfortowo.',
+    'Nacisnąłeś 7 razy. W tym czasie ktoś inny przeczytał wiersz Szymborskiej.',
+    'Stop. Zastanów się nad sobą. Odsuń dłoń od myszy lub ekranu.',
+    'Przycisk oficjalnie przechodzi w stan biernego oporu.',
+    'Dziesięć! Gratulacje. Właśnie udowodniłeś hipotezę o reaktancji.',
+    'Dobra, naciśnij jeszcze raz. Zobaczymy, czy zepsujesz internet.',
+    'System ostrzega: kolejne kliknięcie grozi natychmiastowym niczym.',
+    'Ziemniak w sąsiedniej grze patrzy na Ciebie z rozczarowaniem.',
+    'W 1932 Australia walczyła z emu. Ty walczysz z czerwonym kółkiem.',
+    'Klik, klik, klik. A zadania w pracy same się nie odłożą na jutro.',
+    'Dwadzieścia kliknięć. Otrzymujesz tytuł Naczelnego Reaktora Kraju.',
+    'Czy wiesz, że ten guzik nie ma żadnych kabli z tyłu?',
+    'Przycisk postanowił Ci wybaczyć, ale niesmak pozostał.',
+    'Każde kliknięcie przybliża Cię do emerytury o zero sekund.',
+    'Osiągnięto stan absolutnej durnoty. Jesteś u siebie.',
+  ];
+
+  btn.addEventListener('click', () => {
+    if (!clicked) {
+      clicked = true;
+      clearInterval(timerInterval);
+      const resistanceSeconds = Number(
+        ((performance.now() - startTime) / 1000).toFixed(1),
+      );
+      text('[data-resistance-time]', resistanceSeconds.toFixed(1));
+      saveScore('guzik-opor', resistanceSeconds);
+      start();
+      unlock('first-click');
+    }
+
+    clicks++;
+    text('[data-clicks-count]', clicks);
+    saveScore('guzik-kliki', clicks);
+
+    casing.classList.remove('button-shake');
+    void casing.offsetWidth;
+    casing.classList.add('button-shake');
+
+    const reaction =
+      buttonReactions[Math.min(clicks - 1, buttonReactions.length - 1)]!;
+    reactionBox.textContent = reaction;
+
+    if (clicks >= 10) {
+      unlock('button');
+      text(
+        '[data-result]',
+        `Kliknięć: ${clicks}. Diagnoza psychologiczna: 100% odporności na zakazy.`,
+      );
+    } else {
+      text('[data-result]', `Kliknięć: ${clicks}. Test reaktancji w toku.`);
+    }
+
+    event('button_pressed', { clicks });
+  });
+
+  resetBtn.addEventListener('click', () => {
+    clearInterval(timerInterval);
+    clicked = false;
+    clicks = 0;
+    startTime = performance.now();
+    text('[data-resistance-time]', '0.0');
+    text('[data-clicks-count]', 0);
+    reactionBox.textContent =
+      'Licznik zresetowany. Spróbuj nie kliknąć ani razu. Czas start!';
+    text(
+      '[data-result]',
+      'Psychologia nazywa to reaktancją. Przycisk nazywa to durnotą.',
+    );
+    timerInterval = setInterval(timerTick, 100);
+  });
+}
+
