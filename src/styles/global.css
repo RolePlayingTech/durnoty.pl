@@ -1713,12 +1713,25 @@ button {
     border: 0;
   }
   .edition-line {
-    font-size: 7px;
+    font-size: 8px;
     letter-spacing: 0.4px;
     padding: 8px 0;
+    align-items: center;
+    gap: 8px;
+  }
+  .edition-line > span:first-child {
+    display: none;
+  }
+  .edition-socials {
+    gap: 6px;
+  }
+  .edition-social-link {
+    font-size: 8px;
+    padding: 1px 4px;
   }
   .edition-line > span:last-child {
     white-space: nowrap;
+    margin-left: auto;
   }
   .edition-line b {
     padding-left: 2px;
@@ -2187,6 +2200,14 @@ button {
     gap: 19px;
     flex-wrap: wrap;
     font-size: 11px;
+  }
+  .footer-socials {
+    order: 4;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 10px;
+    margin-top: 4px;
   }
   .footer-secret {
     font-size: 11px;
