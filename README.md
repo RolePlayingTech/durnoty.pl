@@ -1,13 +1,13 @@
 # Durnoty.pl
 
-**Internet nie musiał taki być.** Gazetowy portal z prawdziwymi osobliwościami, autorską satyrą, pięcioma mikrogrami i telewizorem, który nie udaje transmisji na żywo.
+**Internet nie musiał taki być.** Gazetowy portal z prawdziwymi osobliwościami, autorską satyrą, siedmioma grami i telewizorem, który nie udaje transmisji na żywo.
 
-[Portal](https://durnoty.pl) · [Plan i kierunek wizualny](docs/PLAN.md) · [Integracja Mumro](docs/MUMRO.md) · [Propozycje dla Mumro](docs/MUMRO-PROPOZYCJE.md) · [Wdrożenie](docs/DEPLOYMENT.md)
+[Portal](https://durnoty.pl) · [Instagram (@durnoty.pl)](https://www.instagram.com/durnoty.pl/) · [Facebook (Durnoty.pl)](https://www.facebook.com/people/Durnotypl/61592992569062/) · [Plan i kierunek wizualny](docs/PLAN.md) · [Integracja Mumro](docs/MUMRO.md) · [Propozycje dla Mumro](docs/MUMRO-PROPOZYCJE.md) · [Wdrożenie](docs/DEPLOYMENT.md)
 
 ## Co działa
 
 - Serwerowe strony artykułów, wyszukiwarka, kategorie, źródła, Durnometr i losowanie bez natychmiastowych powtórzeń.
-- Ziemniak na czas, quiz z wyjaśnieniami, pomiar refleksu, pamięć i generator wymówek.
+- Siedem gier bez instalacji i logowania: Ziemniak na czas, Czerwony Guzik (reaktancja psychologiczna), quiz z wyjaśnieniami, pomiar refleksu, pamięć, generator wymówek oraz Fizyka kieszeni (rozplątywanie kabli na grafie planarnym).
 - Osiągnięcia i rekordy lokalne. Bez kont, fałszywych statystyk i publicznych komentarzy.
 - Durnoty TV: trzy oryginalne 15-sekundowe programy MP4, pilot, napisy, opcjonalna ciągła playlista.
 - Odbiornik custom CMS zgodny z Mumro: token Bearer, walidacja, sanitizacja, draft/publish/future, idempotencja, zachowanie adresów artykułów.
