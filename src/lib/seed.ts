@@ -177,7 +177,7 @@ const entries = [
     image_caption:
       'Rycina redakcyjna. Histerię zbiorową udokumentowały akta miejskie Strasburga.',
     metadata: {
-      category: 'dziwne',
+      category: 'historia',
       absurdity: 92,
       importance: 60,
       sources: [
